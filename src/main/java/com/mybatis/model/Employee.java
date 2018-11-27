@@ -1,16 +1,26 @@
 package com.mybatis.model;
 
 public class Employee {
-    private int id;
+    private Integer id;
     private String lastName;
     private String gender;
     private String email;
+
+    public Employee() {
+    }
+
+    public Employee(Integer id, String lastName, String gender, String email) {
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = email;
+    }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

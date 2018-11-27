@@ -1,3 +1,4 @@
+import com.mybatis.dao.EmployeeAnnotation;
 import com.mybatis.dao.EmployeeMapper;
 import com.mybatis.model.Employee;
 import org.apache.ibatis.io.Resources;
@@ -38,9 +39,24 @@ public class MybatisTest {
     public void mybatisMapper() throws IOException {
         SqlSession session = createSessionFactory();
         try {
-            EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
-            Employee employee = employeeMapper.selectEmpById(1);
+            EmployeeAnnotation employeeMapper = session.getMapper(EmployeeAnnotation.class);
+            Employee employee = employeeMapper.selectEmpById(2);
             System.out.println(employee);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Test
+    public void test01() throws IOException {
+        // sqlSessionFactory.openSession();该方法不会自动提交数据，需要手动提交
+        SqlSession session = createSessionFactory();
+        try {
+            EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+            Employee employee = new Employee(null, "mcjin", "0", "abcemail");
+            mapper.addEmp(employee);
+            session.commit();
+            System.out.println(employee.getId());
         } finally {
             session.close();
         }

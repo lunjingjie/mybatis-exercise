@@ -6,4 +6,9 @@ public interface EmployeeMapper {
 
     Employee selectEmpById(Integer id);
 
+    void addEmp(Employee employee);
+
+    void updateEmp(Employee employee);
+
+    void delEmpById(Integer id);
 }
