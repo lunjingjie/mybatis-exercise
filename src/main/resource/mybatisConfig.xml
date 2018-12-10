@@ -21,6 +21,7 @@
     </environments>
     <mappers>
         <mapper resource="mapper/Employee.xml"/>
+        <mapper resource="mapper/Student.xml"/>
         <mapper class="com.mybatis.dao.EmployeeAnnotation"></mapper>
     </mappers>
 </configuration>

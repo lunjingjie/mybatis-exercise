@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.dao.StudentMapper">
+
+    <insert id="insertStud" parameterType="com.mybatis.dao.StudentMapper">
+        INSERT INTO tbl_student(student_name, gender)
+                VALUES (#{studentName}, #{gender})
+    </insert>
+
+    <select id="selectStudById" resultType="com.mybatis.dao.StudentMapper">
+        SELECT * FROM tbl_student WHERE student_id = #{id}
+    </select>
+
+    <insert id="insertScore" parameterType="com.mybatis.model.Score">
+        INSERT INTO tbl_score(subject, score, student_id)
+        VALUES (#{subject}, #{score}, #{studentId})
+    </insert>
+
+    <resultMap id="findStudScore" type="com.mybatis.model.Score">
+        <id property="id" column="id"></id>
+        <result property="subject" column="subject"></result>
+        <result property="score" column="score"></result>
+        <result property="studentId" column="student_id"></result>
+        <association property="student" javaType="com.mybatis.model.Student">
+            <id property="studentId" column="student_id"></id>
+            <result property="studentName" column="student_name"></result>
+            <result property="gender" column="gender"></result>
+        </association>
+    </resultMap>
+
+    <select id="getStudentSubList" resultMap="findStudScore">
+        SELECT
+            a.id, a.subject, a.score, b.student_name
+        FROM
+            tbl_score a
+        INNER JOIN
+            tbl_student b
+        ON
+            a.student_id = b.student_id
+        WHERE
+            a.student_id = #{id}
+
+    </select>
+</mapper>

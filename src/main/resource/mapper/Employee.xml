@@ -4,8 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.dao.EmployeeMapper">
+
+    <select id="getEmpList" resultType="com.mybatis.model.Employee">
+        select * from tbl_employee
+    </select>
+
     <select id="selectEmpById" resultType="com.mybatis.model.Employee">
       select * from tbl_employee where id = #{id}
+    </select>
+
+    <select id="selectEmpByIdAndName" resultType="com.mybatis.model.Employee">
+        select * from tbl_employee where id = #{id} AND last_name = #{lastName}
+    </select>
+
+    <select id="selectEmpByIdAndName1" resultType="com.mybatis.model.Employee">
+        select * from tbl_employee where id = #{id} AND last_name = #{lastName}
     </select>
 
     <insert id="addEmp" parameterType="com.mybatis.model.Employee"
