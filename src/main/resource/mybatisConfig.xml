@@ -7,6 +7,12 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="logImpl" value="LOG4J"/>
+        <!--
+            1.启用延迟加载，当使用到的时候才会进行查询
+            2.即使默认值符合需求，也需要显式设置，避免mybatis版本迭代后默认值的改变
+        -->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="aggressiveLazyLoading" value="false" />
     </settings>
     <environments default="development">
         <environment id="development">
