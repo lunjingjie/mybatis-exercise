@@ -44,4 +44,34 @@
             a.student_id = #{id}
 
     </select>
+
+    <!--
+        1.getStudentAndScore
+        2.collection练习
+    -->
+
+    <resultMap id="getStudAndScore" type="com.mybatis.model.Student">
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <result column="gender" property="gender"></result>
+        <collection property="score" ofType="com.mybatis.model.Score">
+            <id column="id" property="id"></id>
+            <result property="subject" column="subject"></result>
+            <result property="score" column="score"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getStudentAndScore" resultMap="getStudAndScore">
+        SELECT
+            a.student_id, a.student_name, a.gender,
+            b.subject, b.score
+        FROM
+            tbl_student a
+        LEFT JOIN
+            tbl_score b
+        ON
+            a.student_id = b.student_id
+        WHERE
+            a.student_id = #{id}
+    </select>
 </mapper>

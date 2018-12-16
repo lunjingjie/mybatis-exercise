@@ -31,4 +31,9 @@ public interface StudentMapper {
      * @param score
      */
     void insertScore(Score score);
+
+    /*
+    * 加载学生对应的成绩(测试collection)
+    */
+    Student getStudentAndScore(Integer id);
 }

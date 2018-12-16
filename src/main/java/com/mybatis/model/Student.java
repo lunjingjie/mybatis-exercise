@@ -6,13 +6,15 @@ public class Student {
     private Integer studentId;
     private String studentName;
     private String gender;
+    private List<Score> score;
 
     public Student() {}
 
-    public Student(Integer studentId, String studentName, String gender) {
+    public Student(Integer studentId, String studentName, String gender, List<Score> score) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.gender = gender;
+        this.score = score;
     }
 
     public Integer getStudentId() {
@@ -39,12 +41,21 @@ public class Student {
         this.gender = gender;
     }
 
+    public List<Score> getScore() {
+        return score;
+    }
+
+    public void setScore(List<Score> score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
                 ", studentName='" + studentName + '\'' +
                 ", gender='" + gender + '\'' +
+                ", score=" + score +
                 '}';
     }
 }
