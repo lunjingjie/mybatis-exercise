@@ -5,26 +5,27 @@
 
 <mapper namespace="com.mybatis.dao.StudentMapper">
 
-    <insert id="insertStud" parameterType="com.mybatis.dao.StudentMapper">
+    <insert id="insertStud" parameterType="com.mybatis.model.Student">
         INSERT INTO tbl_student(student_name, gender)
                 VALUES (#{studentName}, #{gender})
     </insert>
-
-    <select id="selectStudById" resultType="com.mybatis.dao.StudentMapper">
-        SELECT * FROM tbl_student WHERE student_id = #{id}
-    </select>
 
     <insert id="insertScore" parameterType="com.mybatis.model.Score">
         INSERT INTO tbl_score(subject, score, student_id)
         VALUES (#{subject}, #{score}, #{studentId})
     </insert>
 
+    <!--
+        1.association中使用select分步查询
+        2.在配置文件中设置setting实现延迟加载
+    -->
     <resultMap id="findStudScore" type="com.mybatis.model.Score">
         <id property="id" column="id"></id>
         <result property="subject" column="subject"></result>
         <result property="score" column="score"></result>
         <result property="studentId" column="student_id"></result>
-        <association property="student" javaType="com.mybatis.model.Student">
+        <association property="student" javaType="com.mybatis.model.Student"
+            select="com.mybatis.dao.StudentMapper.selectStudById" column="student_id">
             <id property="studentId" column="student_id"></id>
             <result property="studentName" column="student_name"></result>
             <result property="gender" column="gender"></result>
@@ -33,16 +34,15 @@
 
     <select id="getStudentSubList" resultMap="findStudScore">
         SELECT
-            a.id, a.subject, a.score, b.student_name
+            *
         FROM
-            tbl_score a
-        INNER JOIN
-            tbl_student b
-        ON
-            a.student_id = b.student_id
+            tbl_score
         WHERE
-            a.student_id = #{id}
+            id = #{id}
+    </select>
 
+    <select id="selectStudById" resultType="com.mybatis.model.Student">
+        SELECT * FROM tbl_student WHERE student_id = #{id}
     </select>
 
     <!--
