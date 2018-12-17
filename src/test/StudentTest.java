@@ -29,8 +29,9 @@ public class StudentTest {
         SqlSession sqlSession = MybatisTest.createSessionFactory();
         try {
             StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-            Student student = mapper.getStudentAndScore(1);
-            System.out.println(student);
+            Student student = mapper.getStudentAndScore(2);
+            System.out.println(student.getStudentName());
+            System.out.println(student.getScore());
         } finally {
             sqlSession.close();
         }

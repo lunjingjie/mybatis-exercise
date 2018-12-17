@@ -19,7 +19,7 @@
         1.association中使用select分步查询
         2.在配置文件中设置setting实现延迟加载
     -->
-    <resultMap id="findStudScore" type="com.mybatis.model.Score">
+    <!--<resultMap id="findStudScore" type="com.mybatis.model.Score">
         <id property="id" column="id"></id>
         <result property="subject" column="subject"></result>
         <result property="score" column="score"></result>
@@ -38,7 +38,15 @@
         FROM
             tbl_score
         WHERE
-            id = #{id}
+            student_id = #{id}
+    </select>-->
+    <select id="getStudentSubList" resultType="com.mybatis.model.Score">
+        SELECT
+            *
+        FROM
+            tbl_score
+        WHERE
+            student_id = #{id}
     </select>
 
     <select id="selectStudById" resultType="com.mybatis.model.Student">
@@ -50,7 +58,7 @@
         2.collection练习
     -->
 
-    <resultMap id="getStudAndScore" type="com.mybatis.model.Student">
+    <!--<resultMap id="getStudAndScore" type="com.mybatis.model.Student">
         <id column="student_id" property="studentId"></id>
         <result column="student_name" property="studentName"></result>
         <result column="gender" property="gender"></result>
@@ -73,5 +81,27 @@
             a.student_id = b.student_id
         WHERE
             a.student_id = #{id}
+    </select>-->
+
+    <!--
+        1.分步查询 select属性
+        2.延迟加载 fetchType="lazy"
+        3.column="{arg1=column1,arg2=column2}" arg: 从方法传进来的参数变量名; column: 数据库对应的字段名
+    -->
+    <resultMap id="getStudentAndScoreStep" type="com.mybatis.model.Student">
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <result column="gender" property="gender"></result>
+        <collection property="score"
+            select="com.mybatis.dao.StudentMapper.getStudentSubList"
+            column="{id=student_id}" fetchType="lazy">
+            <id column="id" property="id"></id>
+            <result property="subject" column="subject"></result>
+            <result property="score" column="score"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getStudentAndScore" resultMap="getStudentAndScoreStep">
+        select student_id, student_name, gender from tbl_student where student_id = #{id}
     </select>
 </mapper>
