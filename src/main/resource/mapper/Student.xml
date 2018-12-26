@@ -103,5 +103,27 @@
 
     <select id="getStudentAndScore" resultMap="getStudentAndScoreStep">
         select student_id, student_name, gender from tbl_student where student_id = #{id}
+<trim prefix="" suffixOverrides=""></trim>
     </select>
+
+    <!--
+        动态sql标签
+        1.if:条件判断，test内为条件判断语句，特殊符号如“、”、&、|,需要使用转义字符表示
+        2.where:封装where条件语句,避免拼接sql发生错误,and必须放在条件前,除非使用trim
+        3.trim:指定规则过滤多出的字符，如where条件拼接;prefix="where"：整体以where开头;suffixOverrides="and"：去掉条件后的and或其他字符;
+        4.set:update语句中封装更新条件,具体使用与where类似
+        5.forEach:循环条件
+        6.choose:与switch...case...用法一致
+    -->
+
+    <!--
+        void insertStudBatch(List<Student> studs);
+        批量插入student对象
+    -->
+    <insert id="insertStudBatch" parameterType="com.mybatis.model.Student">
+        insert into tbl_student(student_name, gender) values
+        <foreach collection="studs" item="stud" separator=",">
+            (#{stud.studentName}, #{stud.gender})
+        </foreach>
+    </insert>
 </mapper>

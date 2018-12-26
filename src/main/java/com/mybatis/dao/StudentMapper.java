@@ -2,6 +2,7 @@ package com.mybatis.dao;
 
 import com.mybatis.model.Score;
 import com.mybatis.model.Student;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,6 +13,12 @@ public interface StudentMapper {
      * @param student
      */
     void insertStud(Student student);
+
+    /**
+     * 批量插入student对象
+     * @param studs
+     */
+    void insertStudBatch(@Param("studs") List<Student> studs);
 
     /**
      * 根据stundent_id查询student信息
@@ -37,3 +44,4 @@ public interface StudentMapper {
     */
     Student getStudentAndScore(Integer id);
 }
+

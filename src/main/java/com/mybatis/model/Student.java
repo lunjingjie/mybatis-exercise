@@ -10,6 +10,11 @@ public class Student {
 
     public Student() {}
 
+    public Student(String studentName, String gender) {
+        this.studentName = studentName;
+        this.gender = gender;
+    }
+
     public Student(Integer studentId, String studentName, String gender, List<Score> score) {
         this.studentId = studentId;
         this.studentName = studentName;

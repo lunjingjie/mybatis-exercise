@@ -5,7 +5,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.DoubleSupplier;
 
 public class StudentTest {
 
@@ -35,5 +38,25 @@ public class StudentTest {
         } finally {
             sqlSession.close();
         }
+    }
+
+    @Test
+    public void insertStudBatch() throws IOException {
+        SqlSession sqlSession = MybatisTest.createSessionFactory();
+        try {
+            StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+            List<Student> list = new ArrayList<>();
+            list.add(new Student("smith", "1"));
+            list.add(new Student("tommy", "0"));
+            mapper.insertStudBatch(list);
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testJava8() {
+        Arrays.asList("a", "b", "c").forEach((String e) -> System.out.println(e));
     }
 }
