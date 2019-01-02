@@ -1,6 +1,8 @@
 package com.mybatis.model;
 
-public class Score {
+import java.io.Serializable;
+
+public class Score implements Serializable {
 
     private Integer id;
     private String subject;

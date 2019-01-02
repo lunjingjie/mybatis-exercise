@@ -34,7 +34,9 @@ public class StudentTest {
             StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
             Student student = mapper.getStudentAndScore(2);
             System.out.println(student.getStudentName());
-            System.out.println(student.getScore());
+
+            Student student1 = mapper.getStudentAndScore(2);
+            System.out.println(student1.getStudentName());
         } finally {
             sqlSession.close();
         }

@@ -1,8 +1,9 @@
 package com.mybatis.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Student {
+public class Student implements Serializable {
     private Integer studentId;
     private String studentName;
     private String gender;

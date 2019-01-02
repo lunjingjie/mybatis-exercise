@@ -28,8 +28,7 @@ public class MybatisTest {
     public void testMybatis() throws IOException {
         SqlSession session = createSessionFactory();
         try {
-            Employee employee = session.selectOne(
-                    "com.mybatis.employee.selectEmp", 1);
+            Employee employee = session.selectOne("com.mybatis.employee.selectEmp", 1);
             System.out.println(employee);
         } finally {
             session.close();

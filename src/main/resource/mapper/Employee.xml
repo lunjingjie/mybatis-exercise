@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.dao.EmployeeMapper">
+    <!--二级缓存-使用ehcache框架-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
 
     <select id="getEmpList" resultType="com.mybatis.model.Employee">
         select * from tbl_employee
