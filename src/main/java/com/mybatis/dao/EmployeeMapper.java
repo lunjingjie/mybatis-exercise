@@ -2,10 +2,12 @@ package com.mybatis.dao;
 
 import com.mybatis.model.Employee;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public interface EmployeeMapper {
 
     List<Employee> getEmpList();
